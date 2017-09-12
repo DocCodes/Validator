@@ -12,7 +12,7 @@ class HtmlValidateCommand(sublime_plugin.TextCommand):
    url = "http://validator.w3.org/nu/"
    head = {"content-type": "text/html; charset=utf-8"}
 
-   replTag = lambda self, s: reg("<[^>]*>", "", s)
+   replTag = lambda self, s: sub("<[^>]*>", "", s)
    def getBetween(self, s, stt, end):
       b = s.index(stt)+len(stt)
       e = s.index(end, b)
