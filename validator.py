@@ -45,13 +45,9 @@ class HtmlValidateCommand(sublime_plugin.TextCommand):
             e["type"] = self.getBetween(p, "<strong>", "</strong>")
             e["name"] = HTMLParser().unescape(self.replTag(self.convCode(self.getBetween(p, "<span>", "</span>"))))
             e["loc"] = self.replTag(self.getBetween(p, '<p class="location">', "</p>"))
-<<<<<<< HEAD
             e["line"] = [int(p) for p in sub('[^,-9^;]', '', e["loc"]).split(';')[0].split(',')]
             txtp = self.view.text_point(e["line"][0]-1, e["line"][1])
             regns.append(self.view.word(txtp))
-=======
-            e["sloc"] = [p.split(",") for p in sub("[^;^,-9]", "", e["loc"]).split(";")]
->>>>>>> origin/master
             prob[e["type"].lower()].append(e)
          for e in ["error", "warning"]:
             add = "s" if (len(prob[e]) != 1) else ""
