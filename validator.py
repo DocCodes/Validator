@@ -4,6 +4,8 @@ from re import sub
 from html.parser import HTMLParser
 import time
 
+__version__ = "1.1.2"
+
 class HtmlSavingListener(sublime_plugin.EventListener):
    def on_pre_save_async(self, view):
       view.run_command("html_validate")
