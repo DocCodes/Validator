@@ -4,7 +4,7 @@ from re import sub
 from html.parser import HTMLParser
 import time
 
-__version__ = "1.1.2"
+__version__ = "1.1.3"
 
 class HtmlSavingListener(sublime_plugin.EventListener):
    def on_pre_save_async(self, view):
@@ -12,6 +12,7 @@ class HtmlSavingListener(sublime_plugin.EventListener):
 class HtmlValidateCommand(sublime_plugin.TextCommand):
    def run(self, edit):
       ext = self.view.window().extract_variables()["file_extension"] if "file_extension" in self.view.window().extract_variables() else ""
+      self.view.erase_regions("htmlerr")
       if(ext in ["html", "htm"]):
          self.main()
 
@@ -30,7 +31,6 @@ class HtmlValidateCommand(sublime_plugin.TextCommand):
       with open(self.view.file_name().replace("\\", "/"), "rb") as f:
          req = request.urlopen(request.Request(self.url, data=f.read(), headers=self.head))
          res = req.read().decode()
-         self.view.erase_regions("htmlerr")
       if(not "failure" in res):
          self.view.set_status("htmlst", "HTML is valid!")
       else:
